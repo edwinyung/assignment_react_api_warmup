@@ -1,6 +1,6 @@
 // UserList.js
-import React, { Component } from 'react';
-import UserCard from './UserCard';
+import React, { Component } from "react";
+import UserCard from "./UserCard";
 
 // ...UserList component code...
 const UserList = ({ users, isFetching, onDelete }) => {

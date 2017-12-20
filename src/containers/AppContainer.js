@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import App from '../components/App';
-import serialize from 'form-serialize';
+import React, { Component } from "react";
+import App from "../components/App";
+import serialize from "form-serialize";
 
 class AppContainer extends Component {
   constructor() {
@@ -14,7 +14,7 @@ class AppContainer extends Component {
 
   componentDidMount() {
     this.setState({ isFetching: true });
-    fetch('https://reqres.in/api/users?delay=3')
+    fetch("https://reqres.in/api/users?delay=3")
       .then(response => response.json())
       .then(json => {
         this.setState({
@@ -32,19 +32,19 @@ class AppContainer extends Component {
 
     // Create headers to set the content type to json
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append("Content-Type", "application/json");
 
     // Set options, and stringify the body to JSON
     const options = {
       headers,
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(body)
     };
 
     // Before performing the fetch, set isFetching to true
     this.setState({ isFetching: true });
 
-    fetch('https://reqres.in/api/users', options)
+    fetch("https://reqres.in/api/users", options)
       .then(response => {
         // If response not okay, throw an error
         if (!response.ok) {
@@ -77,17 +77,20 @@ class AppContainer extends Component {
       });
   };
 
+
   onDeleteUser = e => {
-    e.preventDefault();
-    const id = e.target.getAttribute('data-id');
+
+  onDeleteUser = event => {
+    event.preventDefault();
     const options = {
-      method: 'DELETE'
+      method: "DELETE"
     };
 
     this.setState({ isFetching: true });
     const url = `https://reqres.in/api/users${id}`;
 
-    fetch(url, options)
+
+    fetch("https://reqres.in/api/users", options)
       .then(response => {
         //if response is empty, throw error
         if (!(response.status >= 200 && response.status < 300)) {
@@ -100,9 +103,14 @@ class AppContainer extends Component {
       })
       .then(result => {
         // Update the user list and isFetching.
+        let newUsers = this.state.users.filter(elem => {
+          console.log(elem.id, id);
+          return elem.id != id;
+        });
         this.setState({
           isFetching: false,
-          users: result
+          users: newUsers
+
         });
       })
       .catch(error => {
@@ -113,6 +121,8 @@ class AppContainer extends Component {
           error
         });
       });
+    //this is because we are over-riding anchor tag default behaviour
+    return false;
   };
 
   render() {
