@@ -1,12 +1,12 @@
 // components/App.js
-import React from 'react';
+import React from "react";
 // Optionally add a reusable Jumbotron element
-import JumbotronFluid from './elements/JumbotronFluid';
-import UserList from './UserList';
-import UserForm from './UserForm';
-import serialize from 'form-serialize';
+import JumbotronFluid from "./elements/JumbotronFluid";
+import UserList from "./UserList";
+import UserForm from "./UserForm";
+import serialize from "form-serialize";
 
-const App = ({ users, isFetching, error, onAddUser }) => (
+const App = ({ users, isFetching, error, onAddUser, onDeleteUser }) => (
   <div className="App">
     <JumbotronFluid
       heading="User CRUD"

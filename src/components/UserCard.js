@@ -13,6 +13,7 @@ const UserCard = ({ user }) => {
   return (
     <div className="UserCard card" style={{ maxWidth: "128px" }}>
       <img className="card-img-top img-fluid" src={avatar} alt="user avatar" />
+      <a href={delete}>Delete User</a>
       <div className="card-block">
         <h4>
           {first_name} {last_name}
