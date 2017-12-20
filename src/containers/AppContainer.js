@@ -77,30 +77,32 @@ class AppContainer extends Component {
       });
   };
 
-  onDeleteUser =  => {
+  onDeleteUser = e => {
+    e.preventDefault();
+    const id = e.target.getAttribute('data-id');
     const options = {
       method: 'DELETE'
     };
 
     this.setState({ isFetching: true });
+    const url = `https://reqres.in/api/users${id}`;
 
-    fetch('https://reqres.in/api/users' + `${key}`, options)
+    fetch(url, options)
       .then(response => {
-        console.log(response);
-
         //if response is empty, throw error
         if (!(response.status >= 200 && response.status < 300)) {
           throw new Error(`${response.status} ${response.statusText}`);
         }
-
-        // Otherwise, extract the response into json
-        return response;
+        let result = this.state.users.filter(user => {
+          return user.id != id;
+        });
+        return result;
       })
-      .then(response => {
+      .then(result => {
         // Update the user list and isFetching.
         this.setState({
           isFetching: false,
-          users: [...this.state.users]
+          users: result
         });
       })
       .catch(error => {
