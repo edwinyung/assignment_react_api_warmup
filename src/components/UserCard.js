@@ -13,7 +13,9 @@ const UserCard = ({ user, onDelete }) => {
   return (
     <div className="UserCard card" style={{ maxWidth: '128px' }}>
       <img className="card-img-top img-fluid" src={avatar} alt="user avatar" />
-      <a href="#" onClick={onDelete} data-id={user.id} />
+      <a href="#" onClick={onDelete} data-id={user.id}>
+        Delete User
+      </a>
       <div className="card-block">
         <h4>
           {first_name} {last_name}

@@ -79,12 +79,12 @@ class AppContainer extends Component {
 
   onDeleteUser = event => {
     event.preventDefault();
+    const id = event.target.getAttribute('data-id');
     const options = {
       method: 'DELETE'
     };
 
     this.setState({ isFetching: true });
-    const url = `https://reqres.in/api/users${id}`;
 
     fetch('https://reqres.in/api/users', options)
       .then(response => {
@@ -92,15 +92,11 @@ class AppContainer extends Component {
         if (!(response.status >= 200 && response.status < 300)) {
           throw new Error(`${response.status} ${response.statusText}`);
         }
-        let result = this.state.users.filter(user => {
-          return user.id != id;
-        });
-        return result;
+        return response;
       })
-      .then(result => {
+      .then(response => {
         // Update the user list and isFetching.
         let newUsers = this.state.users.filter(elem => {
-          console.log(elem.id, id);
           return elem.id != id;
         });
         this.setState({
